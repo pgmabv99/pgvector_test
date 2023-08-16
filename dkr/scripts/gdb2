@@ -1,0 +1,14 @@
+#!/bin/bash
+set -x
+# get poid of posgres under root
+PG_PID=$(pgrep -P 1 post)
+cgdb  \
+  -ex "set follow-fork-mode child" \
+  -ex "show follow-fork-mode" \
+  -ex "directory /$cnt_user/code/phoenix_srv_av  " \
+  -ex "i b" \
+  -ex "b phoenix_srv.c:pe_start" \
+  -ex "b phoenix_srv.c:_PG_init " \
+  -ex "b phoenix_srv.c:pe_telnet_init" \
+  -ex "i b" \
+  -pid $PG_PID

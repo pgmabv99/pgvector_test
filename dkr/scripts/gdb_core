@@ -1,0 +1,14 @@
+#!/bin/bash
+set -x
+# ps axo pid,ppid,command | grep post
+# gcore pid
+
+# kill -SIGABRT 1234
+# kill -SIGQUIT 1234
+# find / -name  "core.*"
+
+# Thread 2.1 "postgres" received signal SIGSEGV, Segmentation fault.
+# 0x00007ff4a9152554 in ?? ()
+# (gdb)
+
+gdb $PHOENIX_HOME/bin/postgres  -ex "bt" -ex "quit" /core.* > /tmp_phn/core_stack.log

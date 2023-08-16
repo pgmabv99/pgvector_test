@@ -1,0 +1,22 @@
+#!/bin/bash
+# get backend backend pid
+# set -x
+set -eu
+
+#  /bin/post excludes defunct
+pg_pid=$(pgrep -f -P 1 bin/post)
+
+# get list of children
+pgrep -P $pg_pid | xargs ps -p
+pg_children=$(pgrep -P $pg_pid )
+
+readarray -t pg_children_list <<< "$pg_children"  # Convert output to a list
+
+#get the last child /assuming it is new backenf
+last_child_pid="${pg_children_list[-1]}"
+# echo $last_child_pid
+
+vs_code_folder=/$cnt_user/code/.vscode
+cp $vs_code_folder/launch_sample.json $vs_code_folder/launch.json
+sed -i -e  's/<PID>/'"$last_child_pid"'/g'  $vs_code_folder/launch.json
+cat $vs_code_folder/launch.json | grep processId

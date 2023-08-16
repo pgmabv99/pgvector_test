@@ -1,0 +1,11 @@
+FROM postgres
+# FROM ubuntu:latest
+RUN  apt-get -qq update
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ADD scripts/dep_install /dep_install
+RUN /dep_install
+
+
+ENTRYPOINT ["sleep", "36000"]
