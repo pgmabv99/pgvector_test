@@ -1,0 +1,3 @@
+[submodule "vector-cookbook"]
+	path = vector-cookbook
+	url = https://github.com/timescale/vector-cookbook.git

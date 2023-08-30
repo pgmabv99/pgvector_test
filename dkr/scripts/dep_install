@@ -1,13 +1,48 @@
 #!/bin/bash
+set -x
 
 echo " install dependencies"
 
+cnt_user=$1
+
 apt-get install -qq -y --no-install-recommends git
 apt-get install -qq -y --no-install-recommends cmake
+apt-get install -qq -y --no-install-recommends make
+apt-get install -qq -y --no-install-recommends gcc
+apt-get install -qq -y --no-install-recommends sudo
+apt-get install -qq -y --no-install-recommends python3-pip
+apt-get install -qq -y --no-install-recommends python3.11-venv
+
+# basic PG
 apt-get install -qq -y --no-install-recommends postgresql-server-dev-15
 
-# cd /tmp
-# git clone --branch v0.4.4 https://github.com/pgvector/pgvector.git
-# cd pgvector
-# make
-# make install # may need sudo
+# PG will need non root user postgres
+usermod -aG sudo $cnt_user
+chown -R $cnt_user:$cnt_user  /var/lib/postgresql
+
+# workaround for some temp connection isues
+git config --global http.sslVerify false
+
+#pg vector extensions
+cd /tmp
+git clone --branch v0.4.4 https://github.com/pgvector/pgvector.git
+cd pgvector
+make
+make install # may need sudo
+
+# install python
+python3 -m venv /$cnt_user/venv1
+source /$cnt_user/venv1/bin/activate
+
+cat >> /tmp/requirements.txt << EOF
+openai
+pandas
+numpy
+tiktoken
+pgvector
+python-dotenv
+psycopg2-binary
+EOF
+# psycopg2
+
+pip3 install -r  /tmp/requirements.txt

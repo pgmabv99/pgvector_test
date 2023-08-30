@@ -1,3 +1,3 @@
 #!/bin/bash
 
-${PHOENIX_HOME}/bin/pg_ctl -D ${PGDATA}/ -l /${cnt_user}/tmp_phn/logfile stop
+pg_ctl -D ${PGDATA}/  stop

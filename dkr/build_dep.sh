@@ -6,4 +6,5 @@ docker rmi $image_dep
 docker build -f dockerfile_dep \
     --no-cache \
     -t $image_dep \
+    --build-arg cnt_user=$cnt_user \
     .

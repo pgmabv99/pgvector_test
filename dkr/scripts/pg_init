@@ -1,26 +1,9 @@
 #!/bin/bash
 
-#init or reinit PG with correct extension
-ext_short=${1:-tl}
 
-if [ $ext_short == 'tl' ]
-then
-    ext='telnet_srv'
-elif [ $ext_short == 'bbl' ]
-then
-    ext='babelfishpg_tds,pg_hint_plan'
-    # ext='babelfishpg_tds, pg_stat_statements'
 
-elif [ $ext_short == 'phn' ]
-then
-    ext='hydra_mariadb'
-else
-    echo " invalid extension. valid values :tl,phn, bbl. default tl"
-    exit 1
-fi
-
-echo "shared_preload_libraries = '$ext'" >> /tmp/postgresql.conf.sample
-sudo dd if=/tmp/postgresql.conf.sample of=$PHOENIX_HOME/share/postgresql/postgresql.conf.sample oflag=append conv=notrunc
-tail $PHOENIX_HOME/share/postgresql/postgresql.conf.sample
+# echo "shared_preload_libraries = '$ext'" >> /tmp/postgresql.conf.sample
+# sudo dd if=/tmp/postgresql.conf.sample of=$PHOENIX_HOME/share/postgresql/postgresql.conf.sample oflag=append conv=notrunc
+# tail $PHOENIX_HOME/share/postgresql/postgresql.conf.sample
 rm -r -f $PGDATA
-${PHOENIX_HOME}/bin/initdb -D ${PGDATA}/ -E "UTF8" --auth=trust --auth-host=trust --auth-local=trust
+initdb -D ${PGDATA}/ -E "UTF8" --auth=trust --auth-host=trust --auth-local=trust
