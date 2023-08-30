@@ -43,6 +43,5 @@ pgvector
 python-dotenv
 psycopg2-binary
 EOF
-# psycopg2
 
 pip3 install -r  /tmp/requirements.txt

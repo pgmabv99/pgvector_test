@@ -9,8 +9,6 @@ ENV cnt_user=$cnt_user
 
 ADD scripts/dep_install /dep_install
 RUN /dep_install $cnt_user
-# RUN  usermod -aG sudo $cnt_user
-# RUN  chown -R $cnt_user:$cnt_user  /var/lib/postgresql
 
 USER ${cnt_user}
 WORKDIR $cnt_user
