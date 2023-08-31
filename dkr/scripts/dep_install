@@ -18,6 +18,7 @@ apt-get install -qq -y --no-install-recommends postgresql-server-dev-15
 
 # PG will need non root user postgres
 usermod -aG sudo $cnt_user
+echo "$cnt_user ALL=(ALL:ALL) NOPASSWD: ALL" |  tee -a /etc/sudoers
 chown -R $cnt_user:$cnt_user  /var/lib/postgresql
 
 # workaround for some temp connection isues
@@ -38,6 +39,7 @@ cat >> /tmp/requirements.txt << EOF
 openai
 pandas
 numpy
+scikit-learn
 tiktoken
 pgvector
 python-dotenv
