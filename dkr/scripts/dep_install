@@ -4,7 +4,8 @@ set -x
 echo " install dependencies"
 
 cnt_user=$1
-
+apt update
+apt-get install -qq -y --no-install-recommends apt-utils
 apt-get install -qq -y --no-install-recommends git
 apt-get install -qq -y --no-install-recommends cmake
 apt-get install -qq -y --no-install-recommends make
@@ -14,7 +15,7 @@ apt-get install -qq -y --no-install-recommends python3-pip
 apt-get install -qq -y --no-install-recommends python3.11-venv
 
 # basic PG
-apt-get install -qq -y --no-install-recommends postgresql-server-dev-15
+apt-get install -qq -y --no-install-recommends postgresql-server-dev-16
 
 # PG will need non root user postgres
 usermod -aG sudo $cnt_user

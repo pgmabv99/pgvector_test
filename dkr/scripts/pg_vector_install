@@ -1,0 +1,7 @@
+#!/bin/bash
+set -x
+cd /tmp
+git clone --branch v0.5.1 https://github.com/pgvector/pgvector.git
+cd pgvector
+make
+make install # may need sudo

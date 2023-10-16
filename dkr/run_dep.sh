@@ -1,5 +1,6 @@
 #!/bin/bash
 . ./setup.sh
+set -x
 docker kill  $cnt_dep
 docker rm $cnt_dep
 
@@ -11,8 +12,8 @@ docker run -d  \
     -e OPEN_API_KEY=$OPEN_API_KEY \
     -p 5432:5432 \
     -v postgres_data:/var/lib/postgresql/data \
-    --mount type=bind,source=$git_root,target=/$cnt_user/pgvector_test \
-    --mount type=bind,source=$git_root/../tmp_pgv,target=/$cnt_user/tmp_pgv \
+    --mount type=bind,source=$git_root,target=/postgres/pgvector_test \
+    --mount type=bind,source=$git_root/../tmp_pgv,target=/postgres/tmp_pgv \
     $image_dep
 
 
