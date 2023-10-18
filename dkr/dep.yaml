@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: dep-cnt
+          image: dep:latest
+          # for dockerhub
+          # image: pgmabv99/dep:latest
+          # for minkub with preloaded image
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: "0.5"    # Request 0.5 CPU cores
+            limits:
+              cpu: "1"      # Limit usage to 1 CPU core
+              memory: "2000Mi"

@@ -8,3 +8,6 @@ docker build -f dockerfile_dep \
     -t $image_dep \
     --build-arg cnt_user=$cnt_user \
     .
+# minikube image build -f dockerfile_dep \
+#     -t pgmabv99/dep \
+#     .
